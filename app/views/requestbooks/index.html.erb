@@ -1,0 +1,89 @@
+
+<p style="color: green"><%= notice %></p>
+
+<% if Current.user.email == "admin@gmail.com" %>
+    <%= link_to 'Home',:controller => "admin", :action => "dashboard", class: "navbar-brand" %>
+<% end %>
+
+<% if Current.user.email != "admin@gmail.com" %>
+    <% if Current.user.role == "Student" %>
+        <%= link_to 'Home',:controller => "students", :action => "student", class: "navbar-brand" %>
+    <% end %>
+    <% if Current.user.role == "Faculty" %>
+        <%= link_to 'Home',:controller => "faculty", :action => "faculty", class: "navbar-brand" %>
+    <% end %>
+<% end %>
+
+
+<% if (Current.user.email != "admin@gmail.com") %>
+ <h1>My Requested Books</h1>
+<% end %>
+
+<% if (Current.user.email == "admin@gmail.com") %>
+ <h1>Book Requestes from User</h1>
+<% end %>
+
+
+<table class= "table table-striped table-bordered">
+<thead>
+  <tr>
+    <th>ISBN</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Requested By</th>
+    <th>Status</th>
+    <th>Approve Date</th>
+    <th>Return Date</th>
+    <th>Fine</th>
+    <th colspan="3"></th>
+  </tr>
+</thead> 
+<div id="requestbooks">
+  <% @requestbooks.each do |requestbook| %>
+    <tr>
+    
+    <% if (Current.user.email == requestbook.email || Current.user.email == "admin@gmail.com") %>
+
+      <td><%= requestbook.isbn %></td>
+      <td><%= requestbook.title %></td>
+      <td><%= requestbook.author %></td>
+      <td><%= requestbook.email %></td>
+      <td><%= requestbook.status %></td>
+      <td><%= requestbook.approvedate %></td>
+      <td><%= requestbook.returndate %></td>
+      <td><%= requestbook.fine %></td>
+      
+      
+      <%if Current.user.email == "admin@gmail.com"%>
+        
+        <td>
+         <%= link_to "Approve", edit_requestbook_path(requestbook) %>
+        </td>
+
+        <td>
+         <%= link_to "Calc. Fine", edit_requestbook_path(requestbook) %>
+        </td>
+
+        <td>
+        <%= button_to "Delete", requestbook, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm"  %>
+        </td>
+
+      <% end %>
+
+      <%if Current.user.email != "admin@gmail.com"%>
+        <td>
+         <%= link_to "Return Book", edit_requestbook_path(requestbook) %>
+        </td>
+      <% end %>  
+        
+    <% end %>
+  <% end %>
+</div>
+</table>
+<%if Current.user.email == "admin@gmail.com"%>
+  <%= link_to "Add Request for Book", new_requestbook_path %>
+<% end %>
+
+
+
+

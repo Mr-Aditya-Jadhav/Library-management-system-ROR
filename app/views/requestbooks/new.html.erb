@@ -1,0 +1,22 @@
+<h1>New requestbook</h1>
+
+<% if Current.user.email == "admin@gmail.com" %>
+    <%= link_to 'Home',:controller => "admin", :action => "dashboard", class: "navbar-brand" %>
+<% end %>
+
+<% if Current.user.email != "admin@gmail.com" %>
+    <% if Current.user.role == "Student" %>
+        <%= link_to 'Home',:controller => "students", :action => "student", class: "navbar-brand" %>
+    <% end %>
+    <% if Current.user.role == "Faculty" %>
+        <%= link_to 'Home',:controller => "faculty", :action => "faculty", class: "navbar-brand" %>
+    <% end %>
+<% end %>
+
+<%= render "form", requestbook: @requestbook %>
+
+<br>
+
+<div>
+  <%= link_to "Back to requestbooks", requestbooks_path %>
+</div>

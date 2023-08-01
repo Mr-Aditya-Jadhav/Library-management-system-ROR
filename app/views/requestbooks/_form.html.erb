@@ -1,0 +1,223 @@
+<%= form_with(model: requestbook) do |form| %>
+  <% if requestbook.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(requestbook.errors.count, "error") %> prohibited this requestbook from being saved:</h2>
+
+      <ul>
+        <% requestbook.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+<% if @editflag == 0 %>
+
+  <% if Current.user.email == "admin@gmail.com" %>
+    <div>
+      <%= form.label :isbn, style: "display: block" %>
+      <%= form.text_field :isbn %>
+    </div>
+
+    <div>
+      <%= form.label :title, style: "display: block" %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div>
+      <%= form.label :author, style: "display: block" %>
+      <%= form.text_field :author %>
+    </div>
+
+    <div>
+      <%= form.label :requestedby, style: "display: block" %>
+      <%= form.text_field :requestedby %>
+    </div>
+
+    <div>
+      <%= form.label :email, style: "display: block" %>
+      <%= form.text_field :email %>
+    </div>
+
+    <div>
+      <%= form.label :Return_Date, style: "display: block" %>
+      <%= form.date_field :returndate %>
+    </div>
+
+  <% end %>
+
+  <% if Current.user.email != "admin@gmail.com"%>
+    <div>
+      <h3> Check Details and create Request ! </h3>
+      <%= form.label :isbn, style: "display: block" %>
+      <%= form.text_field :isbn, value: @isbn %>
+    </div>
+
+    <div>
+      <%= form.label :title, style: "display: block" %>
+      <%= form.text_field :title, value: @title %>
+    </div>
+
+    <div>
+      <%= form.label :author, style: "display: block" %>
+      <%= form.text_field :author, value: @author %>
+    </div>
+
+    <div>
+      <%= form.label :requestedby, style: "display: block" %>
+      <%= form.text_field :requestedby, value: @requestby %>
+    </div>
+
+    <div>
+      <%= form.label :email, style: "display: block" %>
+      <%= form.text_field :email, value: @email %>
+    </div>
+
+    <div>
+      <% form.label :Return_Date, style: "display: block" %>
+      <%= form.date_field :returndate, type: :hidden %>
+    </div>
+
+  <% end %>
+
+  <% if Current.user.email == "admin@gmail.com"%>
+    <div>
+      <%= form.label :status, style: "display: block" %>
+      <%= form.select(:status, options_for_select([['Requested', 'Requested'], ['Approve', 'Approved'], ['Deny', 'Denied'], ['Return Approved', 'Return Approved']]))%>
+      
+      
+    </div>
+
+    <div>
+      <%= form.label :fine, style: "display: block" %>
+      <%= form.number_field :fine %>
+    </div>
+  
+    <div>
+      <%= form.label :Approve_Date, style: "display: block" %>
+      <%= form.date_field :approvedate %>
+    </div>
+
+  <% end %>
+
+  <% if Current.user.email != "admin@gmail.com"%>
+    <div>
+      <% form.label :status, style: "display: block" %>
+      <%= form.text_field :status, value:"Requested", type: :hidden %>
+      
+    </div>
+
+    
+      
+   
+
+  <% end %>
+
+<% end %>
+
+
+<% if @editflag == 1 %>
+
+  <% if Current.user.email == "admin@gmail.com" %>
+    <div>
+      <%= form.label :isbn, style: "display: block" %>
+      <%= form.text_field :isbn %>
+    </div>
+
+    <div>
+      <%= form.label :title, style: "display: block" %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div>
+      <%= form.label :author, style: "display: block" %>
+      <%= form.text_field :author %>
+    </div>
+
+    <div>
+      <%= form.label :requestedby, style: "display: block" %>
+      <%= form.text_field :requestedby %>
+    </div>
+
+    <div>
+      <%= form.label :email, style: "display: block" %>
+      <%= form.text_field :email %>
+    </div>
+
+    <div>
+      <%= form.label :Return_Date, style: "display: block" %>
+      <%= form.date_field :returndate %>
+    </div>
+
+  <% end %>
+
+  <% if Current.user.email != "admin@gmail.com"%>
+    <div>
+      <%= form.label :isbn, style: "display: block" %>
+      <%= form.text_field :isbn %>
+    </div>
+
+    <div>
+      <%= form.label :title, style: "display: block" %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div>
+      <%= form.label :author, style: "display: block" %>
+      <%= form.text_field :author %>
+    </div>
+
+    <div>
+      <%= form.label :requestedby, style: "display: block" %>
+      <%= form.text_field :requestedby %>
+    </div>
+
+    <div>
+      <%= form.label :email, style: "display: block" %>
+      <%= form.text_field :email %>
+    </div>
+
+    <div>
+      <%= form.label :Return_Date, style: "display: block" %>
+      <%= form.date_field :returndate %>
+    </div>
+
+  <% end %>
+
+  <% if Current.user.email == "admin@gmail.com"%>
+    <div>
+      <%= form.label :status, style: "display: block" %>
+      <%= form.select(:status, options_for_select([['Requested', 'Requested'], ['Approve', 'Approved'], ['Deny', 'Denied'], ['Return Approved', 'Return Approved']]))%>
+      
+    </div>
+
+    <div>
+      <%= form.label :fine, style: "display: block" %>
+      <%= form.number_field :fine %>
+    </div>
+  
+    <div>
+      <%= form.label :Approve_Date, style: "display: block" %>
+      <%= form.date_field :approvedate %>
+    </div>
+
+  <% end %>
+
+  <% if Current.user.email != "admin@gmail.com"%>
+    <div>
+      <% form.label :status, style: "display: block" %>
+      <%= form.text_field :status, value:"Requested", type: :hidden %>
+    </div>
+  <% end %>
+
+<% end %>
+
+
+  <br>
+    <div>
+      <%= form.submit %>
+  </div>
+<% end %>
+

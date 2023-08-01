@@ -1,0 +1,51 @@
+<h1>Sign Up</h1>
+
+<%= form_with model: @user, url: sign_up_path do |form| %>
+  <% if form.object.errors.any? %>
+    <div class="alert alert-danger">
+    	<% form.object.errors.full_messages.each do |message| %>
+    	  <div><%= message %></div>
+    	<% end %>
+    </div>
+  <% end %>
+
+<div class="mb-3">
+ <%= form.label :Name %> 
+  <%= form.text_field :name, class: "form-control", placeholder: "Bill Gates" %>
+ </div>
+
+ <div class="mb-3">
+    <%= form.label "Role" %>
+    <%= form.select(:role, options_for_select([['Student', 'Student'], ['Faculty', 'Faculty']]))%>
+  </div>
+
+<div class="mb-3">
+  <h5>Email Format : (Format : Username@Role.com) </h5>
+ <%= form.label :email %>	
+  <%= form.text_field :email, class: "form-control", placeholder: "bill@ceo.com" %>
+ </div>
+
+ <div class="mb-3"> 
+ 	<%= form.label :password %>
+  <%= form.password_field :password, class: "form-control", placeholder: "i_love_Melinda" %>
+</div>
+
+<div class="mb-3">
+	<%= form.label :password_confirmation %>
+  <%= form.password_field :password_confirmation, class: "form-control", placeholder: "password" %>
+ </div>
+ 
+ 
+
+<div class="mb-3">
+    <%= form.label "Confirm your Role and Submit" %>
+    <%= form.select(:issuingcap, options_for_select([['Student', 10], ['Faculty', 15]]))%>
+  </div>
+
+  
+
+
+ <div class="mb-3">
+  <%= form.submit "Sign Up", class: "btn btn-primary" %>
+  </div> 
+ <% end %> 
